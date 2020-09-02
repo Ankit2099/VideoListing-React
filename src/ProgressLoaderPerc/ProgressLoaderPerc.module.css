@@ -1,0 +1,15 @@
+.ProgressWrapper {
+    width: 500px;
+    height: 20px;
+
+    background-color: skyblue;
+    border-radius: 10px;
+}
+
+.ProgressBar {
+    width: 0;
+    height: 20px;
+
+    background-color: steelblue;
+    border-radius: 10px;
+}

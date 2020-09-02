@@ -31,7 +31,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Homepage} />
             <Route path="/video/watch/:videoId" component={VideoWatchPage} />
-            <Route path="/login" render={() => this.state.isUserLoggedIn ? <Redirect to="/" /> : <LoginPage onUserLogin={this.onUserLogin} />} />
+            <Route path="/login" render={(props) => this.state.isUserLoggedIn ? <Redirect to="/" /> : <LoginPage onUserLogin={this.onUserLogin} {...props} />} />
             <Route component={NotFoundPage} />
           </Switch>
         </div>
