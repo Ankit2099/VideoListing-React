@@ -36,28 +36,38 @@ class VideoWatchPage extends React.Component {
             })
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.match.params.videoId !== nextProps.match.params.videoId) {
-            return true
-        }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (this.props.match.params.videoId !== nextProps.match.params.videoId) {
+    //         return true
+    //     }
 
-        return false;
-    }
+    //     if(this.state.playlist !== nextState.playlist) {
+    //         return true;
+    //     }
+
+    //     if (this.state.isBookmarked !== nextState.isBookmarked) {
+    //         return true
+    //     }
+
+    //     return false;
+    // }
 
     componentDidMount() {
         axios.get('https://5d76bf96515d1a0014085cf9.mockapi.io/playlist')
             .then(response => {
                 console.log(response.data);
                 this.setState({ playlist: response.data });
+                this.fetchVideoDetails();
             })
             .catch()
-        this.fetchVideoDetails();
     }
 
     componentDidUpdate() {
         const videoId = this.props.match.params.videoId;
         console.log('Component Updated!!')
-        this.fetchVideoDetails();
+        if (videoId !== this.state.videoData.id) {
+            this.fetchVideoDetails();
+        }
     }
 
     onBookmarkClicked = () => {
@@ -97,7 +107,7 @@ class VideoWatchPage extends React.Component {
                 <div className={classes.PlaylistSection}>
                     {
                         this.state.playlist.map(item => {
-                            return <VideoCard key={item.id} id={item.id} thumbnail={item.thumbnail} title={item.title} />
+                            return <VideoCard key={item.id} id={item.id} thumbnail={item.thumbnail} title={item.title} isActive={item.id === this.state.videoData.id} />
                         })
                     }
                 </div>

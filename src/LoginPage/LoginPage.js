@@ -9,17 +9,16 @@ import classes from './LoginPage.module.css';
 class LoginPage extends React.Component {
     state = {
         showLoader: false,
+        usernameVal: '',
+        passwordVal: '',
     }
 
     handleLoginSubmit = (e) => {
         e.preventDefault();
 
-        console.log(e.target.username.value);
-        console.log(e.target.password.value);
-
         const data = {
-            username: e.target.username.value,
-            password: e.target.password.value
+            username: this.state.usernameVal,
+            password: this.state.passwordVal
         }
 
         this.setState({ showLoader: true });
@@ -38,14 +37,27 @@ class LoginPage extends React.Component {
             })
     }
 
+    handleInputChanges = (e, name) => {
+        switch(name) {
+            case "username":
+                this.setState({usernameVal: e.target.value});
+                break;
+            case "password":
+                this.setState({passwordVal: e.target.value});
+                break;
+            default:
+                console.log('Name not identified!!')
+        }
+    }
+
     render() {
         return (
             <div className={classes.MainContainer}>
                 {this.state.showLoader ? <ProgressLoader /> : null}
                 {/* <ProgressLoaderPerc /> */}
                 <form onSubmit={this.handleLoginSubmit}>
-                    <input type="name" name="username" placeholder="Username" />
-                    <input type="password" name="password" placeholder="Password" />
+                    <input type="name" name="username" placeholder="Username" value={this.state.usernameVal} onInput={(e) => this.handleInputChanges(e, "username")} />
+                    <input type="password" name="password" placeholder="Password" value={this.state.passwordVal} onInput={(e) => this.handleInputChanges(e, "password")} />
 
                     <input type="submit" value="Login" />
                 </form>
