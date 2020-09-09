@@ -12,15 +12,17 @@ import LoginPage from './LoginPage/LoginPage';
 
 class App extends React.Component {
   state = {
-    isUserLoggedIn: false,
+    isUserLoggedIn: localStorage.getItem('isUserLoggedIn') === "true",
   }
 
   onUserLogin = () => {
     this.setState({ isUserLoggedIn: true });
+    localStorage.setItem('isUserLoggedIn', true);
   }
 
   onUserLogout = () => {
     this.setState({ isUserLoggedIn: false });
+    localStorage.setItem('isUserLoggedIn', false);
   }
 
   render() {
